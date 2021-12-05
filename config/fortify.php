@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'guard' => 'web',
+    'guard' => 'master',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'username' => 'email',
+    'username' => 'username',
 
     'email' => 'email',
 
@@ -133,13 +133,13 @@ return [
 
     'features' => [
         Features::registration(),
-        Features::resetPasswords(),
-        // Features::emailVerification(),
-        Features::updateProfileInformation(),
-        Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirmPassword' => true,
-        ]),
+        // Features::resetPasswords(),
+        // // Features::emailVerification(),
+        // Features::updateProfileInformation(),
+        // Features::updatePasswords(),
+        // Features::twoFactorAuthentication([
+        //     'confirmPassword' => true,
+        // ]),
     ],
 
 ];

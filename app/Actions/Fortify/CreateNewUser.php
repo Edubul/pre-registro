@@ -2,7 +2,7 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\User;
+use App\Models\MasterAccount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -21,16 +21,22 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => $this->passwordRules(),
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
+            'email'     => ['required', 'string', 'email', 'max:45'],
+            'username'  => ['required', 'string', 'max:25', 'unique:master_account'],
+            'pass'      => $this->passwordRules(),
+            // 'last_ip'   => request()->ip(),
+            'question'  => ['required'],
+            'question_response' =>  ['required'],
+            'confirm_rules' =>  ['required', 'accepted'],
         ])->validate();
 
-        return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
+        return MasterAccount::create([
+            'email'     => $input['email'],
+            'username'  => $input['username'],
+            'pass'      => md5($input['pass']),
+            // 'last_ip'   => $input['last_ip'],
+            'question'  => $input['question'],
+            'question_response' => $input['question_response'],
         ]);
     }
 }

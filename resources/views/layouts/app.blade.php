@@ -9,38 +9,52 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/arcane.css') }}">
 
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}" defer></script>     
+        <script src="https://cdn.rawgit.com/scottschiller/Snowstorm/master/snowstorm-min.js"></script>
+           
     </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
-
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-
+    <body class="bg-gradient-to-r from-green-600 to-blue-700 text-white ">
+        <main class="h-screen md:grid md:grid-cols-2">
+            <div class="md:flex md:flex-col md:items-center md:text-center md:my-auto hidden ">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $item)
+                        {{$item}}
+                    @endforeach
+                @endif
+                <div class="img-server h-full">
+                    <img src="./img/logo.png" alt="" class="mx-auto">
+                    <h1 class="text-pre text-4xl arcaneStyle"><span class="text-yellow-500">Open Beta</span> - Arcane RO</h1>
+                    <p >RO:Arc is a new Ragnarök Online Low Rates. With a revamped concept to improve the User Experience. Adventurers, prepare yourselves for the upcoming server</p>
+                </div>
+            </div>
+            {{ $slot }}
+        </main>
         @stack('modals')
 
         @livewireScripts
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            window.addEventListener('swal:modal', event => {
+                swal({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                })
+            })
+            snowStorm.snowColor = '#fff';
+            snowStorm.flakesMaxActive = 96;
+            snowStorm.useTwinkleEffect = true; 
+            snowStorm.start();
+            
+        </script>
     </body>
 </html>

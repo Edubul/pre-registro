@@ -1,60 +1,31 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-jet-label for="terms">
-                        <div class="flex items-center">
-                            <x-jet-checkbox name="terms" id="terms"/>
-
-                            <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-jet-label>
+    <div class="my-auto">
+        <div class="flex flex-col p-3">
+            <div class="text-pre text-center">               
+                <h2 class="text-5xl font-medium text-yellow-500 arcaneStyle">PRE-REGISTER</h2>
+           <p class="text-xl arcaneStyle">All roArc players will receive a starter reward for early pre-registration! </p>
+        </div>
+        
+       <div class="box-register bg-blue-800 bg-opacity-30 p-4 md:w-full lg:w-2/4 rounded shadow-sm my-3 mx-auto border-b-2 border-yellow-400">
+           <form method="POST" action="{{ route('register') }}">
+               @csrf
+               <p class="font-mono text-sm tracking-tighter font-bold">Please create a master account to pre-register or <a class="text-yellow-500 underline" href="{{route('login')}}">login</a>.</p>
+               <div class="h-full mt-3 text-black">
+                    <input class="p-2 w-full mt-3 rounded-sm border-none" value="{{old('email')}}" type="email" placeholder="Email" name="email" id="">
+                    <input class="p-2 w-full mt-3 rounded-sm border-none" value="{{old('username')}}" type="text" placeholder="Master Account Username" name="username" id="">
+                    <input class="p-2 w-full mt-3 rounded-sm border-none" type="password" placeholder="Password" name="pass" id="">
+                    <input class="p-2 w-full mt-3 rounded-sm border-none" type="password" placeholder="Repeat Password" name="pass_confirmation" id="">
+                    <x-question-select/>
+                    <input class="p-2 w-full mt-3 rounded-sm border-none" type="text" placeholder="Answer question" name="question_response" id="">
                 </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
+    
+                <div class="checkbox flex mb-3 mt-2 items-center">
+                    <input type="checkbox" name="confirm_rules" id="confirm" class="border-none rounded-full">
+                    <label for="confirm" class="font-mono text-sm ml-2 tracking-tighter font-bold">I have read and agree to the <a class="text-yellow-500" href="https://discord.com/channels/838866246086426664/871895994655199343/909939556407722055">reglament server</a></label>
+                </div>
+                <button type="submit" class="btn-register rounded p-2 flex mx-auto border-2 border-white hover:bg-white hover:text-blue-600 arcaneStyle">Pre-register NOW!</button>
+            </form>
+        </div>
+        <h3 class="text-pre text-center text-3xl arcaneStyle"> <span class="text-yellow-500 arcaneStyle">{{$usersCount}}</span> Players are register, What are you waiting for!</h3>
+    </div>
 </x-guest-layout>

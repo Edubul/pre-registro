@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\GameAccount;
+use App\Models\MasterAccount;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[\App\Http\Controllers\MasterAccountController::class,'index'])->name('index');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/game-register', function () {
+    return view('game.create');
+})->middleware('gameaccount');
+
+Route::get('/logouts', [\App\Http\Controllers\MasterAccountController::class,'logOut'])->name('logout.master_account');
+
+// Route::middleware(['auth:master', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
